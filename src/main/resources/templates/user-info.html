@@ -70,8 +70,6 @@
 </div>
 
 </body>
-
-
 <script>
     const allUsersResource = Vue.resource('/user-info/{id}/get')
     const instDeleteResource = Vue.resource('/inst-del/{id}/{name}')
@@ -85,10 +83,8 @@
         created: function () {
             allUsersResource.get({id: document.location.href.split('/')[4]}).then(result => {
                 result.json().then(data => {
-                    console.log(data)
                     this.user = data.user
                     data.card.forEach(cardi => this.cards.push(cardi))
-                    console.log(this.cards)
 
                 }, error => {
                     console.log(error)
