@@ -1,0 +1,13 @@
+# Created by .ignore support plugin (hsz.mobi)
+target/
+.idea
+*.iws
+*.iml
+*.ipr
+!/.mvn/
+!/.mvn/wrapper/
+/src/main/java/META-INF/
+/src/main/resources/META-INF/
+/.mvn/
+/out/
+/src/test/

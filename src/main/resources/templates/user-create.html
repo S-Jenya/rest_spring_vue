@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="@{/css/style.css}"/>
+
+    <title>user-create</title>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <p>
+                <label for="name">Имя пользователя</label>
+                <input type="text" id="name" placeholder="Имя" v-model="name">
+            </p>
+
+            <p>
+                <label for="password">Пароль</label>
+                <input type="password" id="password"  placeholder="Пароль" v-model="password">
+            </p>
+
+            <p>
+                <label for="role">Роль</label>
+                <input type="text" id="role" placeholder="Роль" v-model="role">
+            </p>
+
+            <p>
+                <input type="submit" value="Создать" @click="createUser" />
+                <input type="submit" onclick="javascript:history.back(); return false;" value="Отменить">
+            </p>
+        </div>
+    </div>
+</body>
+<script>
+    const createUserResource = Vue.resource('/user-create/{name}/{password}/{role}')
+    new Vue({
+        el: '#app',
+        data: {
+            name: '',
+            password: '',
+            role: ''
+        },
+        methods: {
+            createUser: function () {
+                createUserResource.get({
+                    name: this.name,
+                    password: this.password,
+                    role: this.role
+                }).then (result => {
+                    result.text().then(result => {
+                        document.location.href = result
+                    })
+                }, error => {
+                    console.log(error)
+                })
+            }
+        }
+    })
+</script>
+</html>
